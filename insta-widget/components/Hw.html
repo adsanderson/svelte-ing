@@ -1,0 +1,52 @@
+<div class="insta">
+    {{#each images as imgSrc}}
+    <img 
+        src="{{imgSrc.url}}" 
+        class="insta__image {{isImageActive(imgSrc.active)}}"
+        style="top: {{topPosition(imgSrc.height)}}">
+    {{/each}}
+</div>
+
+<script>
+    export default {
+        helpers: {
+            isImageActive,
+            topPosition
+        }
+    }
+    
+    const containerHeight = 640
+    
+    function isImageActive(isImageActive) {
+        if(isImageActive) return 'insta__image--active'
+        return ''
+    }
+    
+    function topPosition(imageHeight) {
+        const init = (containerHeight - imageHeight) / 2
+        const position = Math.max(0, init)
+        return `${position}px` 
+    }
+</script>
+
+<style>
+  .insta {
+      height: 640px;
+      width: 100%;
+      max-width: 640px;
+      overflow: hidden;
+      position: relative;
+      margin: 0 auto;
+  }
+  .insta__image {
+      position: absolute;
+      top: 0;
+      left: 0;
+      opacity: 0;
+      transition: opacity 1s;
+      width: 100%;
+  }
+  .insta__image--active {
+      opacity: 1;
+  }
+</style>
